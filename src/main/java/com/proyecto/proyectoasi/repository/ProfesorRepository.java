@@ -12,5 +12,7 @@ import java.util.Optional;
 public interface ProfesorRepository extends JpaRepository<Profesores, Long> {
 
     Optional<Profesores> findByCorreoAndContra(String correo, String contra);
+    Optional<Profesores> findByCorreo(String correo);
+
 
 }

@@ -1,6 +1,7 @@
 package com.proyecto.proyectoasi.controller;
 
 import com.proyecto.proyectoasi.entity.Profesores;
+import com.proyecto.proyectoasi.entity.Roles;
 import com.proyecto.proyectoasi.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping(path = "api/v1/profesores")
 public class Profesorcontroller {
@@ -20,13 +22,17 @@ public class Profesorcontroller {
     public String login(@RequestBody Map<String, String> datos) {
         String correo = datos.get("correo");
         String contra = datos.get("contra");
+
         boolean autenticado = profesorService.login(correo, contra);
+
         if (autenticado) {
-            return "Login exitoso";
+            String rol = profesorService.emaillogin(correo);
+            return ""+rol;
         } else {
             return "Credenciales incorrectas";
         }
     }
+
 
     @Autowired
     private ProfesorService profesorService;
