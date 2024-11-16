@@ -1,8 +1,8 @@
 package com.proyecto.proyectoasi.controller;
 
 import com.proyecto.proyectoasi.entity.Profesores;
-import com.proyecto.proyectoasi.entity.Roles;
 import com.proyecto.proyectoasi.service.ProfesorService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +13,16 @@ import java.util.Map;
 import java.util.Optional;
 
 
+
 @RestController
 @RequestMapping(path = "api/v1/profesores")
 public class Profesorcontroller {
 
+    @Autowired
+    private ProfesorService profesorService;
 
     @PostMapping("/login")
-    public String login(@RequestBody Map<String, String> datos) {
+    public String login(@RequestBody Map<String, String> datos, HttpSession session) {
         String correo = datos.get("correo");
         String contra = datos.get("contra");
 
@@ -27,15 +30,35 @@ public class Profesorcontroller {
 
         if (autenticado) {
             String rol = profesorService.emaillogin(correo);
-            return ""+rol;
+            session.setAttribute("correo", correo);
+            session.setAttribute("rol", rol);
+            return ""+session;
         } else {
             return "Credenciales incorrectas";
         }
     }
 
 
-    @Autowired
-    private ProfesorService profesorService;
+    @GetMapping("/usuario")
+    public String obtenerUsuario(HttpSession session) {
+        String correo = (String) session.getAttribute("correo");
+        String rol = (String) session.getAttribute("rol");
+
+        if (correo != null && rol != null) {
+            return "Usuario: " + correo + " con rol: " + rol;
+        } else {
+            return "No hay sesión activa.";
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "Sesión cerrada exitosamente";
+    }
+
+
+
 
 
     @GetMapping

@@ -20,9 +20,9 @@ public class ProfesorService {
 
 
 
-    public Optional<Profesores> getProfesoresId(Long id){
-        return profesorRepository.findById(id);
-    }
+        public Optional<Profesores> getProfesoresId(Long id){
+            return profesorRepository.findById(id);
+        }
 
 
 

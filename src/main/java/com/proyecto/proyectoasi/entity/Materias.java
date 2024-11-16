@@ -11,6 +11,7 @@ public class Materias {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long materia_id;
+
     private String nombre_materia;
     private String descripcion;
     @ManyToOne
