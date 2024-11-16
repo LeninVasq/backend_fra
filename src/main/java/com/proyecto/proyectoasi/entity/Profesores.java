@@ -13,7 +13,12 @@ public class Profesores {
     private Long profesor_id;
     private String nombre;
     private String apellido;
-    @Column(name= "email", unique = true,nullable = false)
+    @Column(name= "correo", unique = true,nullable = false)
+
     private String correo;
     private String contra;
+
+    @ManyToOne
+    @JoinColumn(name = "rol_id", referencedColumnName = "rol_id")
+    private Roles rol_id;
 }
