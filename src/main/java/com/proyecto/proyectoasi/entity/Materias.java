@@ -11,8 +11,7 @@ public class Materias {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long materia_id;
-
-    private String nombre_materia;
+    private String nombreMateria;
     private String descripcion;
     @ManyToOne
     @JoinColumn(name = "carrera_id", referencedColumnName = "carrera_id")

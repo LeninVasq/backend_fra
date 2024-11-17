@@ -19,9 +19,9 @@ public class MateriasService {
         return materiaRepository.findAll();
     }
 
-   // public Optional<Materias> getMateriasnombre(String materia){
-     //   return materiaRepository.findByNombre_materia(materia);
-    //}
+    public List<Materias> getMateriasnombre(String materia){
+      return materiaRepository.findByNombreMateria(materia);
+    }
 
     public void save(Materias materias){
         materiaRepository.save(materias);
